@@ -1,11 +1,11 @@
 #' Plot barchi
 #' @export
-plotbarchi2 <- function( fit, xlab="t", n=100, knots=30, degree=3 ){
+plotbarchi <- function( fit, xlab="t", n=100, knots=30, degree=3 ){
   
   xx <- with(fit, seq(min(x), max(x), length.out = n))
-  X <- with(fit, tailpack:::Bmat(xx, tailpack:::calcKnots(x, knots, degree), knots, degree ))
+  X <- with(fit, Bmat(xx, calcKnots(x, knots, degree), knots, degree ))
   
-  barchisamp <- 2*tailpack:::logistic(  X%*%t( fit$samp[,1:ncol(X)] )) - 1
+  barchisamp <- 2*logistic(  X%*%t( fit$samp[,1:ncol(X)] )) - 1
   mbarchi <- apply(barchisamp, 1, mean)
   qbarchi <- apply(barchisamp, 1, quantile, probs=c(0.025, 0.975), names=FALSE)
   
@@ -23,9 +23,9 @@ plotbarchi2 <- function( fit, xlab="t", n=100, knots=30, degree=3 ){
 ploteta <- function( fit, xlab="t", n=100, knots=30, degree=3 ){
   
   xx <- with(fit, seq(min(x), max(x), length.out = n))
-  X <- with(fit, tailpack:::Bmat(xx, tailpack:::calcKnots(x, knots, degree), knots, degree ))
+  X <- with(fit, Bmat(xx, calcKnots(x, knots, degree), knots, degree ))
   
-  etasamp <- tailpack:::logistic(  X%*%t( fit$samp[,1:ncol(X)] ))
+  etasamp <- logistic(  X%*%t( fit$samp[,1:ncol(X)] ))
   meta <- apply(etasamp, 1, mean)
   qeta <- apply(etasamp, 1, quantile, probs=c(0.025, 0.975), names=FALSE)
   
@@ -42,12 +42,12 @@ ploteta <- function( fit, xlab="t", n=100, knots=30, degree=3 ){
 
 #' Plot chi
 #' @export
-plotchi2 <- function( fit, xlab="t", n=100, knots=30, degree=3 ){
+plotchi <- function( fit, xlab="t", n=100, knots=30, degree=3 ){
   
   xx <- with(fit, seq(min(x), max(x), length.out = n))
-  X <- with(fit, tailpack:::Bmat(xx, tailpack:::calcKnots(x, knots, degree), knots, degree ))
+  X <- with(fit, Bmat(xx, calcKnots(x, knots, degree), knots, degree ))
   
-  chisamp <- tailpack:::logistic(  X%*%t( fit$samp[,1:ncol(X)] ))
+  chisamp <- logistic(  X%*%t( fit$samp[,1:ncol(X)] ))
   mchi <- apply(chisamp, 1, mean)
   qchi <- apply(chisamp, 1, quantile, probs=c(0.025, 0.975), names=FALSE)
   
