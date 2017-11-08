@@ -4,7 +4,7 @@
 \alias{plotchi}
 \title{Plot chi}
 \usage{
-plotchi(fit, xlab = "t", n = 100, knots = 30, degree = 3)
+plotchi(fit, xlab = "t", n = 100)
 }
 \arguments{
 \item{fit}{taildep output}

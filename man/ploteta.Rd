@@ -4,7 +4,14 @@
 \alias{ploteta}
 \title{Plot exponential samples}
 \usage{
-ploteta(fit, xlab = "t", n = 100, knots = 30, degree = 3)
+ploteta(fit, xlab = "t", n = 100)
+}
+\arguments{
+\item{fit}{tailind output}
+
+\item{xlab}{x-axis label}
+
+\item{n}{Number of points for smooth line}
 }
 \description{
 Plot exponential samples

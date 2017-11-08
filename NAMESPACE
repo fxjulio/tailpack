@@ -2,6 +2,8 @@
 
 export(bqr)
 export(hill)
+export(plotCopulaBarChi)
+export(plotCopulaChi)
 export(plotbarchi)
 export(plotchi)
 export(ploteta)
