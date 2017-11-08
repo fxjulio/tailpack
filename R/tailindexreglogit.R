@@ -1,4 +1,4 @@
-#' @title Tail index regression 2 (logit)
+#' @title Tail index regression (logit)
 #'
 #' @description
 #' Posterior samples of barchi(t).
@@ -20,7 +20,7 @@
 #' @return A list
 #' 
 #' @export
-tailindexreglogit2 <- function(xy, t, threshold=0.95, k=30, l=3, d=1,
+tailindexreglogit <- function(xy, t, threshold=0.95, k=30, l=3, d=1,
   atau2=0.001, btau2=0.001, step=20, burnin=2000, iter=4000, 
   lambda=1, maxiter=500, control.bqr=list(burnin=1000, step=10, iter=1000), bqr=FALSE  ){
   
@@ -93,6 +93,7 @@ tau20 <- 10
   list( x=x, y=y, u=u, z=z,
     samp = out$samp,
     acceptance = out$acceptance,
-    CVbar=cbind(lambda=lambda, CVbar=CVbar), bqrfit=bqrfit
+    CVbar=cbind(lambda=lambda, CVbar=CVbar), bqrfit=bqrfit,
+    knots = k, degree = l, diff = d
   )
 }

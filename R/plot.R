@@ -1,6 +1,11 @@
 #' Plot barchi
+#' 
+#' @param fit tailind output
+#' @param xlab x-axis label
+#' @param n Number of points for smooth line
+#' 
 #' @export
-plotbarchi <- function( fit, xlab="t", n=100, knots=30, degree=3 ){
+plotbarchi <- function( fit, xlab="t", n=100){
   
   xx <- with(fit, seq(min(x), max(x), length.out = n))
   X <- with(fit, Bmat(xx, calcKnots(x, knots, degree), knots, degree ))
@@ -19,8 +24,13 @@ plotbarchi <- function( fit, xlab="t", n=100, knots=30, degree=3 ){
 }
 
 #' Plot exponential samples
+#' 
+#' @param fit tailind output
+#' @param xlab x-axis label
+#' @param n Number of points for smooth line
+#' 
 #' @export
-ploteta <- function( fit, xlab="t", n=100, knots=30, degree=3 ){
+ploteta <- function( fit, xlab="t", n=100 ){
   
   xx <- with(fit, seq(min(x), max(x), length.out = n))
   X <- with(fit, Bmat(xx, calcKnots(x, knots, degree), knots, degree ))
@@ -41,8 +51,14 @@ ploteta <- function( fit, xlab="t", n=100, knots=30, degree=3 ){
 }
 
 #' Plot chi
+#' 
+#' Plots a taildep ouput.
+#' 
+#' @param fit taildep output
+#' @param xlab x-axis label
+#' @param n Number of points for smooth line
 #' @export
-plotchi <- function( fit, xlab="t", n=100, knots=30, degree=3 ){
+plotchi <- function( fit, xlab="t", n=100 ){
   
   xx <- with(fit, seq(min(x), max(x), length.out = n))
   X <- with(fit, Bmat(xx, calcKnots(x, knots, degree), knots, degree ))

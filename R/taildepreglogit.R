@@ -23,7 +23,7 @@
 #' @return A list.
 #' 
 #' @export
-taildepreglogit2 <- function(xy, t, threshold=0.95, k=30, l=3, d=1,
+taildepreglogit <- function(xy, t, threshold=0.95, k=30, l=3, d=1,
   atau2=0.001, btau2=0.001, 
   step=20, burnin=2000, iter=4000, lambda=1, maxiter=500){
   
@@ -84,7 +84,8 @@ n <- sum(flag)
   list( x=x, y=y,
     samp = out$samp,
     acceptance = out$acceptance,
-    CVbar=cbind(lambda=lambda, CVbar=CVbar)
+    CVbar=cbind(lambda=lambda, CVbar=CVbar),
+    knots = k, degree = l, diff = d
   )
 
 }
