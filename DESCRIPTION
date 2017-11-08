@@ -1,0 +1,14 @@
+Package: tailpack
+Type: Package
+Title: Tail dependence measures
+Imports: matrixcalc, tseries
+Depends: R (>= 3.0.3)
+Version: 0.0.1
+Date: 23-08-2017
+Author: Julio Avila, Miguel de Carvalho
+Maintainer: Julio Avila <jeavila@uc.cl>
+Description: tailpack develop bayesian smoothing methods for 
+	tail dependence measures in bivariate data.
+License: GPL (>= 2)
+LazyLoad: yes
+RoxygenNote: 6.0.1
