@@ -12,7 +12,7 @@
 
 This package in under development and the current version is aviable from:
 ```r
-devtools::install_github("fxjulio/quantmod")
+devtools::install_github("fxjulio/tailpack")
 ```
 
 ### TODO:
