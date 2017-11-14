@@ -10,7 +10,7 @@
 
 ### Instalation
 
-This package in under development and the current version is aviable from:
+This package in under development and the current version is available from:
 ```r
 devtools::install_github("fxjulio/tailpack")
 ```

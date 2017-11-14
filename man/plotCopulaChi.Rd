@@ -4,7 +4,8 @@
 \alias{plotCopulaChi}
 \title{Plot copula chi(u)}
 \usage{
-plotCopulaChi(copula, u = seq(0.9, 0.9999, length.out = 100), ...)
+plotCopulaChi(copula, u = seq(0.9, 0.9999, length.out = 100), ylim = c(0,
+  1), ...)
 }
 \description{
 Plot copula chi(u)

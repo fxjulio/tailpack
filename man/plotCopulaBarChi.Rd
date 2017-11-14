@@ -4,7 +4,8 @@
 \alias{plotCopulaBarChi}
 \title{Plot copula barchi}
 \usage{
-plotCopulaBarChi(copula, u = seq(0.9, 0.9999, length.out = 100), ...)
+plotCopulaBarChi(copula, u = seq(0.9, 0.9999, length.out = 100), ylim = c(0,
+  1), ...)
 }
 \description{
 Plot copula barchi
