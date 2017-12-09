@@ -7,6 +7,15 @@
 plotCopulaChi(copula, u = seq(0.9, 0.9999, length.out = 100), ylim = c(0,
   1), ...)
 }
+\arguments{
+\item{copula}{Function with parameters u, v, and ...}
+
+\item{u}{Vector of values threshold (close to one).}
+
+\item{ylim}{Limits of y-axis. Default c(0,1).}
+
+\item{...}{Parameters to copula function.}
+}
 \description{
 Plot copula chi(u)
 }

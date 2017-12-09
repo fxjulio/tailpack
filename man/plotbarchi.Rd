@@ -4,7 +4,7 @@
 \alias{plotbarchi}
 \title{Plot barchi}
 \usage{
-plotbarchi(fit, xlab = "t", n = 100)
+plotbarchi(fit, xlab = "t", ylim = c(-1, 1), n = 100)
 }
 \arguments{
 \item{fit}{tailind output}

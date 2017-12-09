@@ -606,7 +606,7 @@ SEXP IWLS(SEXP sX, SEXP sKmat, SEXP sy, SEXP sb0, SEXP slambda,
   } else if ( strcmp( CHAR(asChar(smodel)), "explogit") == 0  ){
     loglik = loglikExpLogit;
     link = logistic;
-  } else if ( strcmp( CHAR(asChar(smodel)), "expexp") == 0  ){
+  } else if ( strcmp( CHAR(asChar(smodel)), "explog") == 0  ){
     loglik = loglikExpExp;
     link = exp;
   } else {

@@ -16,13 +16,16 @@
 #' @param iter Number of final iterations. Default 4000
 #' @param lambda Penalization values. Default 1
 #' @param maxiter Maximum of iterations for IWLS algorithm. Default 500
+#' @param link String "logit" or "log"
 #'
 #' @return A list
 #' 
 #' @export
 tailindexreglogit <- function(xy, t, threshold=0.95, k=30, l=3, d=1,
   atau2=0.001, btau2=0.001, step=20, burnin=2000, iter=4000, 
-  lambda=1, maxiter=500, control.bqr=list(burnin=1000, step=10, iter=1000), bqr=FALSE  ){
+  lambda=1, maxiter=500, link="logit", control.bqr=list(burnin=1000, step=10, iter=1000), bqr=FALSE  ){
+  
+  stopifnot(link %in% c("logit", "log") )
   
   if( class(t) == "Date" ){
     t <- as.numeric(t)
@@ -30,16 +33,22 @@ tailindexreglogit <- function(xy, t, threshold=0.95, k=30, l=3, d=1,
   
   ############################
   # hacer variable exponencial
-  
+  bqrfit <- NA
   z <- apply( xy, 1, min)
   
-  if( !bqr ){
-	u <- quantile( z, threshold,  names=FALSE )
-	flag <- z > u
-	y <- log( z[ flag ]/u  )
-	bqrfit <- NA
-  } else { #bqr
-	  
+  if( length(threshold) == length(z) & !bqr){
+    flag <- z > u
+    y <- log( z[flag]/u[flag] )
+  }
+  
+  if( length(threshold) == 1 & !bqr){
+  	u <- quantile( z, threshold,  names=FALSE )
+  	flag <- z > u
+  	y <- log( z[ flag ]/u  )
+  }
+  
+  if(bqr) {
+    
 	  bqrfit <- bqr( t, z, threshold, burnin = control.bqr$burnin, 
 					step=control.bqr$step, iter=control.bqr$iter)
 	  usamp <- bqrfit$X %*% t(bqrfit$samp[,1:ncol(bqrfit$X)])
@@ -61,9 +70,15 @@ tailindexreglogit <- function(xy, t, threshold=0.95, k=30, l=3, d=1,
 ###########################
 # estimador IWLS
 ###########################
-  stopifnot( mean(y) < 1 )
-  b0 <- rep( logit(mean(y)), k+l)
-  fit <- lapply( lambda, function(lambda) IWLSexpRint( X, Kmat, y, b0, lambda, maxiter, link="logit"))
+  if( link == "logit"){
+    stopifnot( mean(y) < 1 )
+    b0 <- rep( logit(mean(y)), k+l)
+  }
+  if( link == "log"){
+    b0 <- rep( log(mean(y)), k+l)
+  }
+  
+  fit <- lapply( lambda, function(lambda) IWLSexpRint( X, Kmat, y, b0, lambda, maxiter, link=link))
   CVbar <- sapply( fit, function(x) ifelse(!x$convergence, x$CVbar, NA) )
 
   plot( lambda, CVbar, log="x" )
@@ -84,7 +99,11 @@ tau20 <- 10
 ########################
   iterations <- burnin + step*iter
   
-  out <- .Call("bsmoothExp", y, atau2, btau2, X, Kmat, beta0, tau20,
+  rutine <- "bsmoothExp"
+  if( link == "log" ) rutine <- "bsmoothExpExp"
+  
+  
+  out <- .Call( rutine , y, atau2, btau2, X, Kmat, beta0, tau20,
 				k, l, d, 
 				burnin, step, iter)
     
@@ -94,6 +113,6 @@ tau20 <- 10
     samp = out$samp,
     acceptance = out$acceptance,
     CVbar=cbind(lambda=lambda, CVbar=CVbar), bqrfit=bqrfit,
-    knots = k, degree = l, diff = d
+    knots = k, degree = l, diff = d, link=link
   )
 }
